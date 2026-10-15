@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موسم کی صورتحال - Naeem Saif</title>
+<style>
+body{font-family:sans-serif; background:#0f172a; color:white; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0;}
+.card{background:#1e293b; padding:30px; border-radius:20px; width:90%; max-width:400px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+input{width:80%; padding:12px; border-radius:10px; border:none; outline:none; margin-top:15px;}
+button{padding:12px 20px; border:none; background:#38bdf8; color:#0f172a; font-weight:bold; border-radius:10px; cursor:pointer; margin-top:10px;}
+.result{margin-top:20px; background:#0f172a; padding:15px; border-radius:15px; display:none;}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>🌤️ موسم کی صورتحال</h2>
+<p>کسی بھی شہر کا نام لکھیں</p>
+<input type="text" id="city" placeholder="مثلاً: Lahore">
+<br>
+<button onclick="getWeather()">موسم دیکھیں</button>
+<div id="result" class="result"></div>
+</div>
+
+<script>
+async function getWeather(){
+ let city = document.getElementById('city').value;
+ if(!city){ alert('شہر کا نام لکھیں'); return; }
+ let resDiv = document.getElementById('result');
+ resDiv.style.display='block';
+ resDiv.innerHTML = 'لوڈ ہو رہا ہے...';
+
+ try{
+  let res = await fetch(`https://wttr.in/${city}?format=j1`);
+  let data = await res.json();
+  let current = data.current_condition[0];
+  let weather = data.weather[0];
+  
+  resDiv.innerHTML = `
+   <h3>${city}</h3>
+   <h1>${current.temp_C}°C</h1>
+   <p>${current.weatherDesc[0].value}</p>
+   <hr>
+   <p>💨 ہوا: ${current.windspeedKmph} km/h</p>
+   <p>💧 نمی: ${current.humidity}%</p>
+   <p>☁️ بادل: ${current.cloudcover}%</p>
+   <p>🌧️ بارش کا امکان: ${weather.hourly[4].chanceofrain}%</p>
+  `;
+ } catch(e){
+  resDiv.innerHTML = 'شہر نہیں ملا، دوبارہ کوشش کریں';
+ }
+}
+</script>
+</body>
+</html>
