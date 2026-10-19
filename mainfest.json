@@ -1,0 +1,16 @@
+{
+  "name": "Pakistan Weather - BWP Mausam",
+  "short_name": "PK Weather",
+  "description": "Pakistan ke kisi bhi shehar ka live mausam",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#ffcc00",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/6974/6974833.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
