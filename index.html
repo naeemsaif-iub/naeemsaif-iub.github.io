@@ -79,7 +79,7 @@ async function getWeather(){
     document.getElementById('desc').innerText = text;
     document.getElementById('humidity').innerText = c.relative_humidity_2m + "%";
     document.getElementById('wind').innerText = Math.round(c.wind_speed_10m) + " km/h";
-    document.getElementById('feels').innerText = Math.round(c.apparent_temperature_2m) + "°";
+    document.getElementById('feels').innerText = Math.round(c.apparent_temperature || c.temperature_2m) + "°";
 
   } catch(e){ alert("Internet check karo"); }
 }
